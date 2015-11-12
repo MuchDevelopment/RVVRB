@@ -1,0 +1,32 @@
+﻿
+
+<div class="col-xs-3">
+    <div class="playerControls">
+        <label>volume: </label><input class="volumeControll"min="0" max="1" step="0.01" type="range" ng-model="audio.volume" />
+        <button ng-disabled="currentNum == 0" class="btn btn-default prev" ng-click="prev()"><i class="glyphicon glyphicon-step-backward"></i> prev</button>
+        <button class="btn btn-default playpause" ng-click="playpause()" ng-class="{paused:audio.paused}">
+            <span class="play-text"><i class="glyphicon glyphicon-play"></i> play</span>
+            <span class="pause-text"><i class="glyphicon glyphicon-pause"></i> pause</span>
+        </button>
+        <button ng-disabled="currentNum >= (totalNum-1)" class="btn btn-default next" ng-click="next()">next <i class="glyphicon glyphicon-step-forward"></i></button>
+    </div>
+</div>
+
+<div class="col-xs-6">
+    <div class="nowPlaying">
+        <div class="nowPlayingInner">
+            Now Playing: <span class="badge"> Song Title: <strong>{{info.name}}</strong></span> - <span class="badge"> Track # : {{info.track_number}}</span>
+        </div>
+        </div>
+    <div class="scrubber">
+        <input min="0" max="{{audio.duration}}" step="0.01" type="range" ng-model="audio.currentTime" />
+    </div>
+</div>
+<div class="col-xs-3">
+    <ul class="playlist">
+        <!--| startFrom:currentNum | limitTo:remainingSongCount-->
+        <li ng-repeat="item in playlist " ng-style="{'background-image':'url({{item.images[0]}})'}" data-file="{{item.preview_url}}">
+            {{item.name}}
+        </li>
+    </ul>
+</div>

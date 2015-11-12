@@ -1,0 +1,43 @@
+﻿<div class="row" ng-cloak>
+    <div class="col-sm-12">
+        <div class="SongListHeader">
+        </div>
+        <ul class="songlist">
+            <li class="songInList" ng-repeat="track in homeList 
+                | filter: {songname:search.searchTrackname} 
+                | filter: {songartist:search.searchArtist}
+                | filter: {songdescription:search.searchDescription}
+                | filter: {songtracknum:search.searchTracknum}
+                | filter: {username:search.searchUser}">
+                <div class="track-main">
+                    <div class="track-body">
+
+                        <div class="trackProfileImgContainer pull-left">
+                            <img class="trackProfileImg" ng-src="{{track.ProfileImage}}">
+                        </div>
+
+                        <span class="badge-attribute"><span class="username">{{track.username}}</span></span>
+                        <span class="badge-attribute" ng-if="track.songname"><strong class="info-badge">Track Name: </strong>{{track.songname}}</span>
+                        <span class="badge-attribute" ng-if="track.songartist"><strong class="info-badge">Track Artist: </strong>{{track.songartist}}</span>
+                        <span class="badge-attribute" ng-if="track.songdescription"><strong class="info-badge">Track Description: </strong>{{track.songdescription}} </span>
+                        <span class="badge-attribute" ng-if="track.songtracknum>0"><strong class="info-badge">Track Number: </strong>{{track.songtracknum}}</span>
+                    </div>
+
+                    <div class="track-btn-area">
+                        <add-audio-button item="track"></add-audio-button>
+                    </div>
+                </div>
+                <div class="comment-bar">
+                    <div class="comment-bar-outter">
+                        <comment-list ng-model="track" trackid="track.ID"></comment-list>
+                        <div class="comment-text-box-outter">
+                            <div class="comment-text-box-inner">
+                                <comment-form thisTrack="track.ID"></comment-form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

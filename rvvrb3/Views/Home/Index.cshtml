@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "RVVRB | FEED THE SOUND MONSTER";
+}
+    <div class="container-fluid" ng-controller="SongListController">
+        <div class="row">
+            <div class="col-xs-12 ">
+                <tabset>
+                    <tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disable="tab.disabled">
+                        <span ng-include="tab.template" ></span>
+                    </tab>
+                </tabset>
+            </div>
+        </div>
+    </div>
+
+<div class="container-fluid mainView" ui-view="Main">
+</div>
+
+    <span ui-view="SoundPlayer">
+        <audio></audio>
+    </span>
+
+

@@ -1,0 +1,9 @@
+﻿<div class="comment-bar-inner" ng-hide="comments.length<1">
+    <div class="comment" ng-repeat="comment in comments">
+        <img ng-src="{{comment.ProfileImage}}" class="comment-profile-img" alt="{{comment.UserName}} Profile Image">
+        <strong>{{comment.UserName}}</strong>
+
+        {{comment.comment}} <small>{{comment.time}}</small>
+
+    </div>
+</div>

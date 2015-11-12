@@ -1,0 +1,40 @@
+﻿@using rvvrb3.Models
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu+Condensed|Quicksand' rel='stylesheet' type='text/css'>
+    @Styles.Render("~/Content/css")
+
+</head>
+<body data-ng-app="rvvrb">
+    <div class="navbar nav-mondo navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle"ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="@Url.Action("Index","Home")" class="navbar-rvvrblogo">
+                    <img class="navbar-rvvrblogo-img" src="~/Content/shared/RVVRBwBars.png">
+                </a>
+
+            </div>
+            <div class="navbar-collapse collapse" collapse="navCollapsed">
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    @RenderBody()
+
+    @Scripts.Render("~/bundles/js")
+    @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+           window.rvvrb = {};
+    </script>
+
+</body>
+</html>

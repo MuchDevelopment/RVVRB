@@ -1,0 +1,40 @@
+﻿<footer class="footer" ng-cloak ng-hide="!playlist.length">
+    <div class="player">
+        <div ng-transclude></div>
+        <div class="col-xs-3">
+            <div class="playerControls">
+                <!--<label>volume: </label><input class="volumeControll" min="0" max="1" step="0.01" type="range" ng-model="audio.volume"/>-->
+                <button class="btn btn-default PlayPause">
+                    <span ng-bind-html="player.buttonIcon"></span>
+                </button>
+            </div>
+        </div>
+
+        <div class="col-xs-6" ng-cloak>
+            <div class="nowPlaying">
+                <div class="nowPlayingInner">
+                    <span class="nowPlaying">Now Playing:</span> 
+                    <span class="badge"> Song Title: <strong>{{currentlyPlaying.songname}}</strong></span> 
+                    <span class="badge"> Artist : {{currentlyPlaying.songartist}}</span>
+                    <span class="badge"> Description : {{currentlyPlaying.songdescription}}</span>
+                </div>
+            </div>
+            <div class="scrubber">
+                <span style="">{{currentTime}}</span>
+                <span style="float: right;">{{remainingTime}}</span>
+                <input min="0" max="100" step="0.01" type="range" ng-model="percentElapsed"/>
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <ul class="playlist">
+                <li ng-repeat="track in playlist track by $index"> 
+                <a class="songListLink" ng-click="playTrack(track)" href="" ng-class="{active: $index == currentlyPlaying.order}">
+                    {{track.songname}} - <i style="font-size: 0.8em;">{{track.songartist}}</i>
+                </a>
+                    <a class="removeBtn" ng-click="removeTrack(track)"><i class="glyphicon glyphicon-remove-sign"></i></a>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+

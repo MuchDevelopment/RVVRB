@@ -1,0 +1,354 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RVVRBDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogin">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProfileImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+    <NavigationProperty Name="tblFavoritePlaylists" Relationship="Self.FK_tblFavoritePlaylists_AspNetUsers" FromRole="AspNetUsers" ToRole="tblFavoritePlaylists" />
+    <NavigationProperty Name="tblFavoriteSongs" Relationship="Self.FK_tblFavoriteSongs_AspNetUsers" FromRole="AspNetUsers" ToRole="tblFavoriteSongs" />
+    <NavigationProperty Name="tblPlaylists" Relationship="Self.FK_tblPlaylist_AspNetUsers" FromRole="AspNetUsers" ToRole="tblPlaylist" />
+    <NavigationProperty Name="tblSongs" Relationship="Self.FK_tblSong_AspNetUsers" FromRole="AspNetUsers" ToRole="tblSong" />
+    <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+    <Property Name="Bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="tblFavoritePlaylist">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="playlistID" Type="Int32" />
+    <Property Name="userID" Type="Int32" />
+    <Property Name="time" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_tblFavoritePlaylists_AspNetUsers" FromRole="tblFavoritePlaylists" ToRole="AspNetUsers" />
+    <NavigationProperty Name="tblPlaylist" Relationship="Self.FK_tblFavoritePlaylists_tblPlaylist" FromRole="tblFavoritePlaylists" ToRole="tblPlaylist" />
+  </EntityType>
+  <EntityType Name="tblFavoriteSong">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="songID" Type="Int32" />
+    <Property Name="userID" Type="Int32" />
+    <Property Name="time" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_tblFavoriteSongs_AspNetUsers" FromRole="tblFavoriteSongs" ToRole="AspNetUsers" />
+    <NavigationProperty Name="tblSong" Relationship="Self.FK_tblFavoriteSongs_tblSong" FromRole="tblFavoriteSongs" ToRole="tblSong" />
+  </EntityType>
+  <EntityType Name="tblPlaylist">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="playlistTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="userID" Type="Int32" />
+    <Property Name="time" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_tblPlaylist_AspNetUsers" FromRole="tblPlaylist" ToRole="AspNetUsers" />
+    <NavigationProperty Name="tblFavoritePlaylists" Relationship="Self.FK_tblFavoritePlaylists_tblPlaylist" FromRole="tblPlaylist" ToRole="tblFavoritePlaylists" />
+    <NavigationProperty Name="tblPlaylistSongs" Relationship="Self.FK_tblPlaylistSongs_tblPlaylist" FromRole="tblPlaylist" ToRole="tblPlaylistSongs" />
+  </EntityType>
+  <EntityType Name="tblPlaylistSong">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="playlistID" Type="Int32" />
+    <Property Name="songID" Type="Int32" />
+    <Property Name="position" Type="Int32" />
+    <NavigationProperty Name="tblPlaylist" Relationship="Self.FK_tblPlaylistSongs_tblPlaylist" FromRole="tblPlaylistSongs" ToRole="tblPlaylist" />
+    <NavigationProperty Name="tblSong" Relationship="Self.FK_tblPlaylistSongs_tblSong" FromRole="tblPlaylistSongs" ToRole="tblSong" />
+  </EntityType>
+  <EntityType Name="tblSong">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userID" Type="Int32" />
+    <Property Name="songname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="songtracknum" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="songartist" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="songdescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="songfilename" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="time" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_tblSong_AspNetUsers" FromRole="tblSong" ToRole="AspNetUsers" />
+    <NavigationProperty Name="tblFavoriteSongs" Relationship="Self.FK_tblFavoriteSongs_tblSong" FromRole="tblSong" ToRole="tblFavoriteSongs" />
+    <NavigationProperty Name="tblPlaylistSongs" Relationship="Self.FK_tblPlaylistSongs_tblSong" FromRole="tblSong" ToRole="tblPlaylistSongs" />
+  </EntityType>
+  <EntityType Name="tblFollow">
+    <Key>
+      <PropertyRef Name="follower" />
+      <PropertyRef Name="followed" />
+    </Key>
+    <Property Name="follower" Type="Int32" Nullable="false" />
+    <Property Name="followed" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblFavoritePlaylists_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+    <End Role="tblFavoritePlaylists" Type="Self.tblFavoritePlaylist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblFavoritePlaylists">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblFavoriteSongs_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+    <End Role="tblFavoriteSongs" Type="Self.tblFavoriteSong" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblFavoriteSongs">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblPlaylist_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+    <End Role="tblPlaylist" Type="Self.tblPlaylist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblPlaylist">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblSong_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+    <End Role="tblSong" Type="Self.tblSong" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblSong">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblFavoritePlaylists_tblPlaylist">
+    <End Role="tblPlaylist" Type="Self.tblPlaylist" Multiplicity="0..1" />
+    <End Role="tblFavoritePlaylists" Type="Self.tblFavoritePlaylist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblPlaylist">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblFavoritePlaylists">
+        <PropertyRef Name="playlistID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblFavoriteSongs_tblSong">
+    <End Role="tblSong" Type="Self.tblSong" Multiplicity="0..1" />
+    <End Role="tblFavoriteSongs" Type="Self.tblFavoriteSong" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblSong">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblFavoriteSongs">
+        <PropertyRef Name="songID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblPlaylistSongs_tblPlaylist">
+    <End Role="tblPlaylist" Type="Self.tblPlaylist" Multiplicity="0..1" />
+    <End Role="tblPlaylistSongs" Type="Self.tblPlaylistSong" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblPlaylist">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblPlaylistSongs">
+        <PropertyRef Name="playlistID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblPlaylistSongs_tblSong">
+    <End Role="tblSong" Type="Self.tblSong" Multiplicity="0..1" />
+    <End Role="tblPlaylistSongs" Type="Self.tblPlaylistSong" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblSong">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblPlaylistSongs">
+        <PropertyRef Name="songID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="RVVRBDB" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="tblFavoritePlaylists" EntityType="Self.tblFavoritePlaylist" />
+    <EntitySet Name="tblFavoriteSongs" EntityType="Self.tblFavoriteSong" />
+    <EntitySet Name="tblPlaylists" EntityType="Self.tblPlaylist" />
+    <EntitySet Name="tblPlaylistSongs" EntityType="Self.tblPlaylistSong" />
+    <EntitySet Name="tblSongs" EntityType="Self.tblSong" />
+    <EntitySet Name="tblFollows" EntityType="Self.tblFollow" />
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblFavoritePlaylists_AspNetUsers" Association="Self.FK_tblFavoritePlaylists_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="tblFavoritePlaylists" EntitySet="tblFavoritePlaylists" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblFavoriteSongs_AspNetUsers" Association="Self.FK_tblFavoriteSongs_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="tblFavoriteSongs" EntitySet="tblFavoriteSongs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblPlaylist_AspNetUsers" Association="Self.FK_tblPlaylist_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="tblPlaylist" EntitySet="tblPlaylists" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblSong_AspNetUsers" Association="Self.FK_tblSong_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="tblSong" EntitySet="tblSongs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblFavoritePlaylists_tblPlaylist" Association="Self.FK_tblFavoritePlaylists_tblPlaylist">
+      <End Role="tblPlaylist" EntitySet="tblPlaylists" />
+      <End Role="tblFavoritePlaylists" EntitySet="tblFavoritePlaylists" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblFavoriteSongs_tblSong" Association="Self.FK_tblFavoriteSongs_tblSong">
+      <End Role="tblSong" EntitySet="tblSongs" />
+      <End Role="tblFavoriteSongs" EntitySet="tblFavoriteSongs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblPlaylistSongs_tblPlaylist" Association="Self.FK_tblPlaylistSongs_tblPlaylist">
+      <End Role="tblPlaylist" EntitySet="tblPlaylists" />
+      <End Role="tblPlaylistSongs" EntitySet="tblPlaylistSongs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblPlaylistSongs_tblSong" Association="Self.FK_tblPlaylistSongs_tblSong">
+      <End Role="tblSong" EntitySet="tblSongs" />
+      <End Role="tblPlaylistSongs" EntitySet="tblPlaylistSongs" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <EntitySet Name="tblPaths" EntityType="RVVRBDBModel.tblPath" />
+    <EntitySet Name="tblUsers" EntityType="RVVRBDBModel.tblUser" />
+  </EntityContainer>
+  <EntityType Name="tblPath">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="pathtitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="path" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="tblUser">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="imgFilename" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="imgPathID" Type="Int32" Nullable="false" />
+    <Property Name="bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>
